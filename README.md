@@ -1,6 +1,11 @@
 # Wara
 
-TODO: Write a gem description
+Wara generate a scapegoat for objects of CoreData.
+
+You are using CoreDate, if you want to change the Entity, it is necessary to create a sub-context.However, it takes time be used to manage the sub-context.On the other hand, it is necessary to undo to the default context if one context.
+
+Wara is used to generate an object to make changes without the operation of the context if you want to change the entity.
+
 
 ## Installation
 
@@ -20,7 +25,7 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+    $ wara -m MyDataModel.xcdatamodeld/MyDataModel.xcdatamodel
 
 ## Contributing
 
