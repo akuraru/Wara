@@ -22,6 +22,7 @@ Wara is used to generate an object to make changes without the operation of the 
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
+  spec.add_runtime_dependency "thor", "~> 0.18.1"
   spec.add_development_dependency "bundler", "~> 1.6"
   spec.add_development_dependency "rake", "~> 10.0"
 end
