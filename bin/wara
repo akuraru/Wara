@@ -9,11 +9,11 @@ module Wara
   class CLI < Thor
     default_task :create
 
-    option :storyboard, :type => :string, :aliases => '-s',:required => true, :desc => 'storyboard'
-    option :to, :type => :string, :aliases => '-t', :desc => 'out put to the directory'
+    option :model, :type => :string, :aliases => '-m',:required => true, :desc => 'Path to model'
+    option :out, :type => :string, :aliases => '-o', :desc => 'Output directory'
     desc "create", "create Translation.strings"
     def create
-      Wara::Core.new.create(options[:storyboard], options[:from], options[:to], option[:string])
+      Wara::Core.new.create(options[:model], options[:out])
       puts 'Generate'
     end
     desc "version", "version"

@@ -8,8 +8,12 @@ Gem::Specification.new do |spec|
   spec.version       = Wara::VERSION
   spec.authors       = ["akuraru"]
   spec.email         = ["akuraru@gmail.com"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
+  spec.summary       = %q{This generate a scapegoat for objects of CoreData.}
+  spec.description   = %q{Wara generate a scapegoat for objects of CoreData.
+
+You are using CoreDate, if you want to change the Entity, it is necessary to create a sub-context.However, it takes time be used to manage the sub-context.On the other hand, it is necessary to undo to the default context if one context.
+
+Wara is used to generate an object to make changes without the operation of the context if you want to change the entity.}
   spec.homepage      = ""
   spec.license       = "MIT"
 
