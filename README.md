@@ -1,5 +1,7 @@
 # Wara
 
+[![Build Status](https://travis-ci.org/akuraru/Wara.svg?branch=master)](https://travis-ci.org/akuraru/Wara)
+
 Wara generate a scapegoat for objects of CoreData.
 
 You are using CoreDate, if you want to change the Entity, it is necessary to create a sub-context.However, it takes time be used to manage the sub-context.On the other hand, it is necessary to undo to the default context if one context.
