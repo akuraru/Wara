@@ -1,6 +1,7 @@
 # Wara
 
 [![Build Status](https://travis-ci.org/akuraru/Wara.svg?branch=master)](https://travis-ci.org/akuraru/Wara)
+[![Coverage Status](https://coveralls.io/repos/akuraru/Wara/badge.png?branch=master)](https://coveralls.io/r/akuraru/Wara?branch=master)
 
 Wara generate a scapegoat for objects of CoreData.
 
