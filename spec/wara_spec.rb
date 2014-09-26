@@ -23,11 +23,12 @@ describe Wara::Core, "load" do
 	shared_context 'create' do
 		let(:core) {Wara::Core.new() }
 		before do
-			core.create("./coredata/Model.xcdatamodeld/Model.xcdatamodel", out=)
+			core.create("./coredata/Model.xcdatamodeld/Model.xcdatamodel", out, lang)
 		end
 	end
 	describe "creaet" do
 		let(:out) { "./out/ObjC" }
+		let(:lang) { Wara::Lang::ObjC }
 		include_context 'delete all file'
 		include_context 'create'
 		describe "xml" do
@@ -100,35 +101,19 @@ describe Wara::Core, "load" do
 		end
 	end
 	describe(:objc) {
-		let(:out) { "./out/ObjC" }
+		let(:dir) { "ObjC/" }
+		let(:out) { "./out/#{dir}" }
+		let(:input) { "./coredata/#{dir}" }
+		let(:lang) { Wara::Lang::ObjC }
 		include_context 'delete all file'
 		include_context 'create'
 		entity_names.each {|e|
-			describe(:read_interface) {
-				let(:read_interface) { File.read("out/ObjC/_#{e}Wrapper.h")}
-				let(:expected) { File.read("coredata/ObjC/_#{e}Wrapper.h")}
-				it(e) { expect(read_interface).to eq expected }
-			}
-		}
-		entity_names.each {|e|
-			describe(:read_implementation) {
-				let(:read_implementation) { File.read("out/ObjC/_#{e}Wrapper.m")}
-				let(:expected) { File.read("coredata/ObjC/_#{e}Wrapper.m")}
-				it(e) { expect(read_implementation).to eq expected }
-			}
-		}
-		entity_names.each {|e|
-			describe(:read_interface_name) {
-				let(:read_interface_name) { File.read("out/ObjC/#{e}Wrapper.h")}
-				let(:expected) { File.read("coredata/ObjC/#{e}Wrapper.h")}
-				it(e) { expect(read_interface_name).to eq expected }
-			}
-		}
-		entity_names.each {|e|
-			describe(:read_implementation_name) {
-				let(:read_implementation_name) { File.read("out/ObjC/#{e}Wrapper.m")}
-				let(:expected) { File.read("coredata/ObjC/#{e}Wrapper.m")}
-				it(e) { expect(read_implementation_name).to eq expected }
+			["_#{e}Wrapper.h", "_#{e}Wrapper.m", "#{e}Wrapper.h", "#{e}Wrapper.m"].each {|file_name|
+				describe(file_name) {
+					let(:read_interface) { File.read("#{out}#{file_name}")}
+					let(:expected) { File.read("#{input}#{file_name}")}
+					it(e) { expect(read_interface).to eq expected }
+				}
 			}
 		}
 	}
