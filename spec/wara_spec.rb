@@ -9,17 +9,27 @@ module Wara
 end
 
 describe Wara::Core, "load" do
-	let(:core) {Wara::Core.new() }
 	entity_names = ["BloodPressure", "HealthData", "CurrentPerson", "NotSame", "Person"]
-	describe "creaet" do
+	shared_context 'delete all file' do
 		before do
-			entity_names.each {|n|
-				Dir["./out/*.*"].each {|n|
-					File.delete(n)
-				}
+			Dir["./out/ObjC/*.*"].each {|f|
+				File.delete(f)
 			}
-			core.create("./coredata/Model.xcdatamodeld/Model.xcdatamodel", "./out")
+			Dir["./out/Swift/*.*"].each {|f|
+				File.delete(f)
+			}
 		end
+	end
+	shared_context 'create' do
+		let(:core) {Wara::Core.new() }
+		before do
+			core.create("./coredata/Model.xcdatamodeld/Model.xcdatamodel", out=)
+		end
+	end
+	describe "creaet" do
+		let(:out) { "./out/ObjC" }
+		include_context 'delete all file'
+		include_context 'create'
 		describe "xml" do
 			let(:xml) { core.xml }
 			it(:create) {
@@ -88,33 +98,38 @@ describe Wara::Core, "load" do
 				} )
 			}
 		end
+	end
+	describe(:objc) {
+		let(:out) { "./out/ObjC" }
+		include_context 'delete all file'
+		include_context 'create'
 		entity_names.each {|e|
 			describe(:read_interface) {
-				let(:read_interface) { File.read("out/_#{e}Wrapper.h")}
-				let(:expected) { File.read("coredata/_#{e}Wrapper.h")}
+				let(:read_interface) { File.read("out/ObjC/_#{e}Wrapper.h")}
+				let(:expected) { File.read("coredata/ObjC/_#{e}Wrapper.h")}
 				it(e) { expect(read_interface).to eq expected }
 			}
 		}
 		entity_names.each {|e|
 			describe(:read_implementation) {
-				let(:read_implementation) { File.read("out/_#{e}Wrapper.m")}
-				let(:expected) { File.read("coredata/_#{e}Wrapper.m")}
+				let(:read_implementation) { File.read("out/ObjC/_#{e}Wrapper.m")}
+				let(:expected) { File.read("coredata/ObjC/_#{e}Wrapper.m")}
 				it(e) { expect(read_implementation).to eq expected }
 			}
 		}
 		entity_names.each {|e|
 			describe(:read_interface_name) {
-				let(:read_interface_name) { File.read("out/#{e}Wrapper.h")}
-				let(:expected) { File.read("coredata/#{e}Wrapper.h")}
+				let(:read_interface_name) { File.read("out/ObjC/#{e}Wrapper.h")}
+				let(:expected) { File.read("coredata/ObjC/#{e}Wrapper.h")}
 				it(e) { expect(read_interface_name).to eq expected }
 			}
 		}
 		entity_names.each {|e|
 			describe(:read_implementation_name) {
-				let(:read_implementation_name) { File.read("out/#{e}Wrapper.m")}
-				let(:expected) { File.read("coredata/#{e}Wrapper.m")}
+				let(:read_implementation_name) { File.read("out/ObjC/#{e}Wrapper.m")}
+				let(:expected) { File.read("coredata/ObjC/#{e}Wrapper.m")}
 				it(e) { expect(read_implementation_name).to eq expected }
 			}
 		}
-	end
+	}
 end

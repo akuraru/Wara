@@ -4,8 +4,13 @@ require 'fileutils'
 require 'rexml/document'
 
 module Wara
+	module Lang 
+		ObjC = 0
+		Swift = 1
+	end
+
 	class Core
-		def create(model, to)
+		def create(model, to, lang = Lang::ObjC)
 			to = File.dirname(model) unless to
 			@xml = REXML::Document.new(open(File.expand_path("contents", model)))
 			@objects = @xml.get_elements('model/entity')
