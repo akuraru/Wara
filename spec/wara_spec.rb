@@ -117,4 +117,21 @@ describe Wara::Core, "load" do
 			}
 		}
 	}
+	describe(:objc) {
+		let(:dir) { "Swift/" }
+		let(:out) { "./out/#{dir}" }
+		let(:input) { "./coredata/#{dir}" }
+		let(:lang) { Wara::Lang::Swift }
+		include_context 'delete all file'
+		include_context 'create'
+		entity_names.each {|e|
+			["_#{e}Wrapper.swift", "#{e}Wrapper.swift"].each {|file_name|
+				describe(file_name) {
+					let(:read_interface) { File.read("#{out}#{file_name}")}
+					let(:expected) { File.read("#{input}#{file_name}")}
+					it(e) { expect(read_interface).to eq expected }
+				}
+			}
+		}
+	}
 end
