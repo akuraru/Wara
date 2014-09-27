@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6220.17" systemVersion="13E28" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6244" systemVersion="13F34" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="BloodPressure" representedClassName="BloodPressure" parentEntity="HealthData" syncable="YES">
         <attribute name="bloodPressure" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
     </entity>
@@ -18,8 +18,8 @@
         <attribute name="data" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="decimal" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="double" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="float" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="dou" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="flo" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="int16" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="int32" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="int64" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
@@ -36,8 +36,8 @@
         <element name="BloodPressure" positionX="-27" positionY="63" width="128" height="60"/>
         <element name="CurrentPerson" positionX="-63" positionY="-18" width="128" height="60"/>
         <element name="HealthData" positionX="-36" positionY="9" width="128" height="105"/>
-        <element name="Person" positionX="-54" positionY="-9" width="128" height="105"/>
         <element name="NotHaveCusttomClassName" positionX="-54" positionY="36" width="128" height="43"/>
         <element name="NotSameCusstomClassName" positionX="-45" positionY="45" width="128" height="210"/>
+        <element name="Person" positionX="-54" positionY="-9" width="128" height="105"/>
     </elements>
 </model>

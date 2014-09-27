@@ -2,6 +2,12 @@ require 'spec_helper'
 require './lib/wara'
 require 'fileutils'
 
+describe String do
+	it(:to_snake) { expect("HogeFuga".to_snake).to eq "hoge_fuga"}
+	it(:to_camel) { expect("hoge_fuga".to_camel).to eq "HogeFuga"  }
+	it(:to_scamel) { expect("hoge_fuga".to_scamel).to eq "hogeFuga"  }
+end
+
 module Wara
 	class Core
 		attr_reader :xml, :objects, :entities
@@ -9,17 +15,28 @@ module Wara
 end
 
 describe Wara::Core, "load" do
-	let(:core) {Wara::Core.new() }
 	entity_names = ["BloodPressure", "HealthData", "CurrentPerson", "NotSame", "Person"]
-	describe "creaet" do
+	shared_context 'delete all file' do
 		before do
-			entity_names.each {|n|
-				Dir["./out/*.*"].each {|n|
-					File.delete(n)
-				}
+			Dir["./out/ObjC/*.*"].each {|f|
+				File.delete(f)
 			}
-			core.create("./coredata/Model.xcdatamodeld/Model.xcdatamodel", "./out")
+			Dir["./out/Swift/*.*"].each {|f|
+				File.delete(f)
+			}
 		end
+	end
+	shared_context 'create' do
+		let(:core) {Wara::Core.new() }
+		before do
+			core.create("./coredata/Model.xcdatamodeld/Model.xcdatamodel", out, lang)
+		end
+	end
+	describe "creaet" do
+		let(:out) { "./out/ObjC" }
+		let(:lang) { Wara::Lang::ObjC }
+		include_context 'delete all file'
+		include_context 'create'
 		describe "xml" do
 			let(:xml) { core.xml }
 			it(:create) {
@@ -72,7 +89,7 @@ describe Wara::Core, "load" do
 			it(:check_3) {
 				expect(entities[3]).to eq(
 					{
-						"attributes" => {"boolean"=>"Boolean", "data"=>"Binary", "date"=>"Date", "decimal"=>"Decimal", "double"=>"Double", "float"=>"Float", "int16"=>"Integer 16", "int32"=>"Integer 32", "int64"=>"Integer 64", "string"=>"String", "transformable"=>"Transformable"},
+						"attributes" => {"boolean"=>"Boolean", "data"=>"Binary", "date"=>"Date", "decimal"=>"Decimal", "dou"=>"Double", "flo"=>"Float", "int16"=>"Integer 16", "int32"=>"Integer 32", "int64"=>"Integer 64", "string"=>"String", "transformable"=>"Transformable"},
 						"name"=>"NotSameCusstomClassName",
 						"representedClassName"=>"NotSame",
 						"parentEntity"=>nil,
@@ -88,33 +105,39 @@ describe Wara::Core, "load" do
 				} )
 			}
 		end
-		entity_names.each {|e|
-			describe(:read_interface) {
-				let(:read_interface) { File.read("out/_#{e}Wrapper.h")}
-				let(:expected) { File.read("coredata/_#{e}Wrapper.h")}
-				it(e) { expect(read_interface).to eq expected }
-			}
-		}
-		entity_names.each {|e|
-			describe(:read_implementation) {
-				let(:read_implementation) { File.read("out/_#{e}Wrapper.m")}
-				let(:expected) { File.read("coredata/_#{e}Wrapper.m")}
-				it(e) { expect(read_implementation).to eq expected }
-			}
-		}
-		entity_names.each {|e|
-			describe(:read_interface_name) {
-				let(:read_interface_name) { File.read("out/#{e}Wrapper.h")}
-				let(:expected) { File.read("coredata/#{e}Wrapper.h")}
-				it(e) { expect(read_interface_name).to eq expected }
-			}
-		}
-		entity_names.each {|e|
-			describe(:read_implementation_name) {
-				let(:read_implementation_name) { File.read("out/#{e}Wrapper.m")}
-				let(:expected) { File.read("coredata/#{e}Wrapper.m")}
-				it(e) { expect(read_implementation_name).to eq expected }
-			}
-		}
 	end
+	describe(:objc) {
+		let(:dir) { "ObjC/" }
+		let(:out) { "./out/#{dir}" }
+		let(:input) { "./coredata/#{dir}" }
+		let(:lang) { Wara::Lang::ObjC }
+		include_context 'delete all file'
+		include_context 'create'
+		entity_names.each {|e|
+			["_#{e}Wrapper.h", "_#{e}Wrapper.m", "#{e}Wrapper.h", "#{e}Wrapper.m"].each {|file_name|
+				describe(file_name) {
+					let(:read_interface) { File.read("#{out}#{file_name}")}
+					let(:expected) { File.read("#{input}#{file_name}")}
+					it(e) { expect(read_interface).to eq expected }
+				}
+			}
+		}
+	}
+	describe(:objc) {
+		let(:dir) { "Swift/" }
+		let(:out) { "./out/#{dir}" }
+		let(:input) { "./coredata/#{dir}" }
+		let(:lang) { Wara::Lang::Swift }
+		include_context 'delete all file'
+		include_context 'create'
+		entity_names.each {|e|
+			["_#{e}Wrapper.swift", "#{e}Wrapper.swift"].each {|file_name|
+				describe(file_name) {
+					let(:read_interface) { File.read("#{out}#{file_name}")}
+					let(:expected) { File.read("#{input}#{file_name}")}
+					it(e) { expect(read_interface).to eq expected }
+				}
+			}
+		}
+	}
 end
