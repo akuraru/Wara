@@ -1,5 +1,5 @@
 import Foundation
 
-class NotSameWrapper : _NotSameWrapper {
+class NotSameWrapper: _NotSameWrapper {
     // Custom logic goes here.
 }

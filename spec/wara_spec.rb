@@ -2,6 +2,12 @@ require 'spec_helper'
 require './lib/wara'
 require 'fileutils'
 
+describe String do
+	it(:to_snake) { expect("HogeFuga".to_snake).to eq "hoge_fuga"}
+	it(:to_camel) { expect("hoge_fuga".to_camel).to eq "HogeFuga"  }
+	it(:to_scamel) { expect("hoge_fuga".to_scamel).to eq "hogeFuga"  }
+end
+
 module Wara
 	class Core
 		attr_reader :xml, :objects, :entities
@@ -83,7 +89,7 @@ describe Wara::Core, "load" do
 			it(:check_3) {
 				expect(entities[3]).to eq(
 					{
-						"attributes" => {"boolean"=>"Boolean", "data"=>"Binary", "date"=>"Date", "decimal"=>"Decimal", "double"=>"Double", "float"=>"Float", "int16"=>"Integer 16", "int32"=>"Integer 32", "int64"=>"Integer 64", "string"=>"String", "transformable"=>"Transformable"},
+						"attributes" => {"boolean"=>"Boolean", "data"=>"Binary", "date"=>"Date", "decimal"=>"Decimal", "dou"=>"Double", "flo"=>"Float", "int16"=>"Integer 16", "int32"=>"Integer 32", "int64"=>"Integer 64", "string"=>"String", "transformable"=>"Transformable"},
 						"name"=>"NotSameCusstomClassName",
 						"representedClassName"=>"NotSame",
 						"parentEntity"=>nil,

@@ -1,22 +1,19 @@
 import Foundation
 
-class _BloodPressureWrapper : HealthDataWrapper {
-    func entity() -> BloodPressure? {
+class _BloodPressureWrapper: HealthDataWrapper {
+    override func entity() -> BloodPressure? {
         return _entity as BloodPressure?
     }
-    var bloodPressure :NSNumber?
-    
-    init(entity :BloodPressure?) {
-        super.init(entity: entity)
-        if let e = entity {
-            bloodPressure = e.bloodPressure
+    var bloodPressure: NSNumber?
+
+    init(bloodPressure: BloodPressure?) {
+        super.init(healthData: bloodPressure)
+        if let e = bloodPressure {
+            self.bloodPressure = e.bloodPressure
         }
     }
-    override func updateEntity(entity :HealthData) {
-        
-    }
-    func updateEntity(entity :BloodPressure) {
-        super.updateEntity(entity)
-        entity.bloodPressure = bloodPressure
+    func updateBloodPressure(bloodPressure: BloodPressure) {
+        super.updateHealthData(bloodPressure)
+        bloodPressure.bloodPressure = self.bloodPressure
     }
 }

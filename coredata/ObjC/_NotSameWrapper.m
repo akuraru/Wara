@@ -14,8 +14,8 @@
         self.data = entity.data;
         self.date = entity.date;
         self.decimal = entity.decimal;
-        self.double = entity.double;
-        self.float = entity.float;
+        self.dou = entity.dou;
+        self.flo = entity.flo;
         self.int16 = entity.int16;
         self.int32 = entity.int32;
         self.int64 = entity.int64;
@@ -30,8 +30,8 @@
     entity.data = self.data;
     entity.date = self.date;
     entity.decimal = self.decimal;
-    entity.double = self.double;
-    entity.float = self.float;
+    entity.dou = self.dou;
+    entity.flo = self.flo;
     entity.int16 = self.int16;
     entity.int32 = self.int32;
     entity.int64 = self.int64;

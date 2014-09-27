@@ -1,13 +1,17 @@
 import Foundation
 
-class _CurrentPersonWrapper : NSObject {
-    let entity :CurrentPerson?
-    init(_entity :CurrentPerson?) {
-        entity = _entity
+class _CurrentPersonWrapper: NSObject {
+    let _entity: CurrentPerson?
+    func entity() -> CurrentPerson? {
+        return _entity
+    }
+
+    init(currentPerson: CurrentPerson?) {
+        _entity = currentPerson
         super.init()
-        if let e = _entity {
+        if let e = currentPerson {
         }
     }
-    func updateEntity(entity :CurrentPerson) {
+    func updateCurrentPerson(currentPerson: CurrentPerson) {
     }
 }
