@@ -6,9 +6,9 @@ require 'rexml/document'
 class String
 	def to_snake
 		ptn = /[A-Z\s]*[^A-Z]*/
-		self =~ ptn ? self.scan(ptn).map{|i|
+		self.scan(ptn).map{|i|
 			i.gsub(/[\s:]+/,'_').downcase
-		}.join('_').gsub(/__+/,'_').sub(/_$/,'') : self
+		}.join('_').gsub(/__+/,'_').sub(/_$/,'')
 	end
 	def to_camel
 		self.split(/[_\s]+/).map{|i|
