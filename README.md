@@ -29,7 +29,13 @@ Or install it yourself as:
 
 ## Usage
 
+create objective-c code
+
     $ wara -m MyDataModel.xcdatamodeld/MyDataModel.xcdatamodel
+
+create objective-c code
+
+    $ wara -m MyDataModel.xcdatamodeld/MyDataModel.xcdatamodel --swift
 
 ## Contributing
 
