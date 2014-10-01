@@ -14,7 +14,7 @@ module Wara
     option :swift, :type => :boolean, :desc => 'Generate Swift'
     desc "create", "create scapegoat objects"
     def create
-      Wara::Core.new.create(options[:model], options[:out], options[:swift] ? Lang::ObjC : Lang::Swift)
+      Wara::Core.new.create(options[:model], options[:out], options[:swift] ? Lang::Swift : Lang::ObjC)
       puts 'Generate'
     end
     desc "version", "version"
